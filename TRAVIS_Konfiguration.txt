@@ -1,3 +1,6 @@
+*** TRAVIS_Konfiguration_File
+
+
 SONAR_TOKEN
 006c6058746c01d847d46d3ea5919d35216ac81a
 
@@ -6,3 +9,4 @@ fn-tfe17-g9
 
 SONAR_ALTERNATIVE_PROJECTKEY
 net.key.philipp.simon
+
