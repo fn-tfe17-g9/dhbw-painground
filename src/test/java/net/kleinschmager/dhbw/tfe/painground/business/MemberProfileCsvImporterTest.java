@@ -22,6 +22,8 @@ import net.kleinschmager.dhbw.tfe.painground.business.MemberProfileCsvImporter;
 import net.kleinschmager.dhbw.tfe.painground.business.MemberProfileCsvTransformator;
 import net.kleinschmager.dhbw.tfe.painground.persistence.model.MemberProfile;
 
+import javax.persistence.Id;
+
 public class MemberProfileCsvImporterTest {
 
    private CsvImporter sut;
@@ -29,6 +31,7 @@ public class MemberProfileCsvImporterTest {
    @Before
    public void setUp() throws Exception {
        //this.sut = new AlternativeMemberProfileCsvImporter();
+       // sut steht für 'System Under Test'
        this.sut = new MemberProfileCsvImporter();
        ((MemberProfileCsvImporter) this.sut).setCsvTransformator(new MemberProfileCsvTransformator());
 
@@ -49,6 +52,25 @@ public class MemberProfileCsvImporterTest {
        // THEN
        assertEquals("Two profiles should be returned", 2, result.size());
 
+
+   }
+
+   @Test
+   public void testContent() throws IOException{
+
+      // GIVEN
+      String content = "MemberId;Surname;Givenname;DateOfBirth;Skills" + "\n"
+         + "id1;Kleinschmager;Robert;06.12.1980;java, html, scrum, jenkins, eclipse, oracleDb, complex event processing"
+         + "\n" + "mickni;Knight;Michael;09.01.1949;driving, punch, investigate, charming, bleached";
+
+      File testFile = getAsFile(content);
+
+      // WHEN
+      List<MemberProfile> result = sut.importFile(testFile);
+
+      // THEN
+      assertEquals("The content is at it was expected", "Kleinschmager", result.get(0).getSurName());
+      assertEquals("The content is at it was expected", "Robert", result.get(0).getGivenName());
    }
 
    @Test
@@ -157,7 +179,7 @@ public class MemberProfileCsvImporterTest {
    }
 
    @Test
-   @Ignore
+   //@Ignore
    public void lockedFileShouldFail() throws IOException {
 
        // GIVEN
