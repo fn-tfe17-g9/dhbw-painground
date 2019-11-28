@@ -169,7 +169,6 @@ public class MemberProfileCsvImporterTest {
        List<MemberProfile> result = sut.importFile(file);
 
        // THEN
-
        assertTrue("Result must be empty", result.isEmpty());
 
    }
